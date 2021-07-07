@@ -26,12 +26,12 @@ class TableViewController: UITableViewController {
         if downloaded {
             tableView.reloadData()
         } else {
-            showFailure(message: errorString ?? "")
+            showFailure(title: "Failed to update data", message: errorString ?? "")
         }
     }
     
-    func showFailure(message: String) {
-        let alertVC = UIAlertController(title: "Failed to update data", message: message, preferredStyle: .alert)
+    func showFailure(title: String, message: String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }
@@ -57,7 +57,20 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let urlString = LocationModel.locations[indexPath.row].mediaURL
         let app = UIApplication.shared
-        app.open(URL(string: urlString)!)
+        
+        if let url = URL(string: urlString) {
+            app.open(url) { success in
+                guard !success else {
+                    return
+                }
+                
+                self.showFailure(title: "Failed to open URL", message: "Url is empty or not correct.")
+            }
+        } else {
+            showFailure(title: "Failed to open URL", message: "Url is empty or not correct.")
+        }
+        
+        
     }
     
     @objc func onDidReceiveData(_ notification: Notification) {

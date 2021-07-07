@@ -32,7 +32,7 @@ class TabBarController: UITabBarController{
     
     @IBAction func logoutButtonTapped(_ sender: Any) {
         UdacityClient.deleteSession() { success, error in
-            if success == true {
+            if success {
                 self.dismiss(animated: true, completion: nil)
             }
         }

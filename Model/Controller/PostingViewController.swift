@@ -13,14 +13,16 @@ class PostingViewController: UIViewController {
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var findLocationButton: UIButton!
+    @IBOutlet weak var actiityIndicator: UIActivityIndicatorView!
     var coordinates: CLLocationCoordinate2D!
     
 
     
     @IBAction func findLocationButtonTapped(_ sender: Any) {
         let geocoder = CLGeocoder()
+        actiityIndicator.startAnimating()
         geocoder.geocodeAddressString(locationTextField.text!) {placemarks, error in
-            
+            self.actiityIndicator.stopAnimating()
             guard let urlText = self.urlTextField.text else {
                 self.showFailure(title: "Error", message: "Can't get URL information.")
                 return

@@ -291,10 +291,15 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="4KX-TS-0z5">
+                                <rect key="frame" x="177.5" y="413" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LjV-5q-vTL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="4KX-TS-0z5" firstAttribute="centerX" secondItem="LjV-5q-vTL" secondAttribute="centerX" id="RAR-vg-pwG"/>
+                            <constraint firstItem="4KX-TS-0z5" firstAttribute="top" secondItem="ecu-7c-Olx" secondAttribute="bottom" constant="7.5" id="USB-Oa-2jx"/>
                             <constraint firstItem="ecu-7c-Olx" firstAttribute="centerX" secondItem="LjV-5q-vTL" secondAttribute="centerX" id="VuN-XM-wCQ"/>
                             <constraint firstItem="ecu-7c-Olx" firstAttribute="centerY" secondItem="LjV-5q-vTL" secondAttribute="centerY" id="oLE-HV-9mL"/>
                             <constraint firstItem="LjV-5q-vTL" firstAttribute="trailing" secondItem="ecu-7c-Olx" secondAttribute="trailing" constant="16" id="x93-lV-dD5"/>
@@ -305,6 +310,7 @@
                         <barButtonItem key="backBarButtonItem" title="Cancell" id="UDZ-jb-G86"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="actiityIndicator" destination="4KX-TS-0z5" id="gxR-e1-76E"/>
                         <outlet property="findLocationButton" destination="LDk-zD-Qml" id="Ycs-it-5Bn"/>
                         <outlet property="locationTextField" destination="6Rh-vQ-mFR" id="96f-x7-j6y"/>
                         <outlet property="urlTextField" destination="QuT-Qk-rWD" id="ezw-ec-bqk"/>

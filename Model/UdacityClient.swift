@@ -181,7 +181,7 @@ class UdacityClient {
     }
     
     class func getStudentsLodcations(completion: @escaping(Bool, String?) -> Void) {
-        let url = Endpionts.onTheMap("?limit=200&order=-updatedAt").url
+        let url = Endpionts.onTheMap("?limit=100&order=-updatedAt").url
         taskForGetRequest(url: url, responceType: LocationResponce.self) { responceObject, error in
             guard let responceObject = responceObject else {
                 return completion(false, error)

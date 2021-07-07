@@ -27,7 +27,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if downloaded {
             setAnnotations()
         } else {
-            showFailure(message: errorString ?? "")
+            showFailure(title: "Failed to update data", message: errorString ?? "")
         }
     }
     
@@ -49,8 +49,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.mapView.addAnnotations(annotations)
     }
     
-    func showFailure(message: String) {
-        let alertVC = UIAlertController(title: "Failed to update data", message: message, preferredStyle: .alert)
+    func showFailure(title: String, message: String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertVC, animated: true, completion: nil)
     }
@@ -79,7 +79,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let toOpen = view.annotation?.subtitle! {
-                app.open(URL(string: toOpen)!)
+                if let url = URL(string: toOpen) {
+                    app.open(url) { success in
+                        guard !success else {
+                            return
+                        }
+                        self.showFailure(title: "Failed to open URL", message: "Url is empty or not correct.")
+                    }
+                } else {
+                    showFailure(title: "Failed to open URL", message: "Url is empty or not correct.")
+                }
             }
         }
     }
